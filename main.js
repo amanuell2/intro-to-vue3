@@ -21,6 +21,9 @@ createApp({
     methods:{
         updateImage(variantImage) {
             this.product.image = variantImage
+        },
+        addToCart(variantId) {
+
         }
     }
 }).mount("#app")
