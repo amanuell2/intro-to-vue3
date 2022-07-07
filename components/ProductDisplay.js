@@ -34,6 +34,8 @@ app.component("product-display", {
             <button class="button" :class="{ disabledButton: !inStock }" :disabled="!inStock" v-on:click="addToCart">Add to Cart</button>
           </div>
         </div>
+        <review-list v-if="reviews.length" :reviews="reviews"></review-list>
+        <product-review @review-submitted="addReview"></product-review>
       </div>
     `,
   data() {
@@ -57,10 +59,16 @@ app.component("product-display", {
         },
       ],
       onSale: true,
+      reviews: [],
     };
   },
   methods: {
-    addToCart() {},
+    addToCart() {
+      this.$emit("add-to-cart", this.variants[this.selectedVariant].id);
+    },
+    addReview(productReview) {
+      this.reviews.push(productReview);
+    },
   },
   computed: {
     title() {
@@ -80,7 +88,7 @@ app.component("product-display", {
       return "";
     },
     shipping() {
-        return this.premium ? "Free" : "2.99";
-    }
+      return this.premium ? "Free" : "2.99";
+    },
   },
 });
